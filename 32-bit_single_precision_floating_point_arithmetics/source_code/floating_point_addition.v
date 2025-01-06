@@ -9,8 +9,7 @@ module floating_point_addition#
     output [DATA_WIDTH-1:0] floating_addition_out
 );
 
-    wire [DATA_WIDTH-1:0] exponent1;
+    wire                  sign1,sign2;
+    wire [DATA_WIDTH-1:0] exponent1,exponent2;
 
-    wire sign1,sign2;
-    
 endmodule
