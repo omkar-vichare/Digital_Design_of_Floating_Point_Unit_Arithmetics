@@ -10,7 +10,10 @@ module floating_point_addition#
 );
 
     wire sign1,sign2;
-    wire  exponent1;
-    wire [DATA_WIDTH-1:0]mentissa1,mentissa2;
+    
+    wire exponent2;
+    
+    
+    
     
 endmodule
