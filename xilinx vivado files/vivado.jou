@@ -11,3 +11,4 @@
 #-----------------------------------------------------------
 start_gui
 open_project {C:/Users/dvlsi/Documents/CDAC PROJECT/xilinx_vivado/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files/xilinx vivado files.xpr}
+update_compile_order -fileset sources_1

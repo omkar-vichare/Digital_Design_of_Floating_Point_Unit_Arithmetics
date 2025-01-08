@@ -105,3 +105,7 @@ Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2019.1/data/ip'. 
 // HMemoryUtils.trashcanNow. Engine heap size: 837 MB. GUI used memory: 52 MB. Current time: 1/7/25, 1:10:33 PM IST
 // Project name: xilinx vivado files; location: C:/Users/dvlsi/Documents/CDAC PROJECT/xilinx_vivado/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files; part: xc7vx485tffg1157-1
+dismissDialog("Open Project"); // by (cl)
+// Tcl Message: update_compile_order -fileset sources_1 
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, floating_point_addition (floating_point_addition.v)]", 1, false); // B (F, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, floating_point_addition (floating_point_addition.v)]", 1, false, false, false, false, false, true); // B (F, cl) - Double Click
