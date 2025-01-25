@@ -46,5 +46,14 @@ module floating_point_addition#
          .mux3_sel_out    (mux3_sel),            // TO_STAGE1
          . 
         );
-//
+    
+    //STAGE2 : ALIGNING_EXPONENT
+    addition_stage2 stage2 
+        (
+
+
+        );
+
+
+
 endmodule
