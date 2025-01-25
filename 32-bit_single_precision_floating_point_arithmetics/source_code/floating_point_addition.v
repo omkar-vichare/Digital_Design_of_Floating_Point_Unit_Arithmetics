@@ -16,9 +16,7 @@ module floating_point_addition#
     wire   [EXPO_WIDTH-1:0] exponent1,exponent2;
     wire   [MENT_WIDTH-1:0] mentissa1,mentissa2;
     
-    //WIRES_FOR_STAGE1 : EXPONENT_COMPARISION
-    wire    
-
+    //WIRES_FOR_STAGE1 : EXPONENT_COMPARISION    
 
     //BIT_SWIZZLING
     assign {sign1,exponent1,mentissa1} = floating1_in;
@@ -46,7 +44,7 @@ module floating_point_addition#
          .mux1_sel_out    (mux1_sel),            // TO_STAGE1
          .mux2_sel_out    (mux2_sel),            // TO_STAGE1
          .mux3_sel_out    (mux3_sel),            // TO_STAGE1
-         .
+         . 
         );
 
 endmodule

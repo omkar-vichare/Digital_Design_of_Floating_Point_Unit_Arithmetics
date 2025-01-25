@@ -12,7 +12,6 @@ module addition_stage1#
 	input                   mux1_sel_in,
 	input                   mux2_sel_in,
 	input                   mux3_sel_in,
-	
 	//OUTPUT_TO_CONTROL_UNIT
 	output [EXPO_WIDTH  :0] exp_diff_out,
     //OUTPUT_TO_STAGE2 : ALIGNING_MENTISSA
@@ -43,7 +42,7 @@ module addition_stage1#
 
 	assign bigger_operand_out  = (mux1_sel_in ? mentissa1 
 											  : mentissa2);
-	
+
 	assign smaller_operand_out = (mux2_sel_in ? mentissa2 
 											  : mentissa1);      
 
