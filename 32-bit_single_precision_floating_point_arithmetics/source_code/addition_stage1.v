@@ -24,7 +24,7 @@ module addition_stage1#
 
 	//INTERNEDIATE_SIGNAL_FOR_2's_COMPLIMENT
 	wire   [EXPO_WIDTH  :0] twos_compliment;
-	
+	//
 	//BIT_SWIZZLING
 	assign {sign1,exponent1,mentissa1} = floating1_in;
     assign {sign2,exponent2,mentissa2} = floating2_in;
