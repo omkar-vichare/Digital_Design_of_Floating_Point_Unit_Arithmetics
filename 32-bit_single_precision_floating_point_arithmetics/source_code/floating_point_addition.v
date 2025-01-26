@@ -89,14 +89,12 @@ module floating_point_addition#
         (
          .
          .
-         .
-         . 
         );
 
     //STAGE5 : ROUNDING_HARDWARE
     addition_stage5 stage5 
         (
-            
+
         );
 
 endmodule

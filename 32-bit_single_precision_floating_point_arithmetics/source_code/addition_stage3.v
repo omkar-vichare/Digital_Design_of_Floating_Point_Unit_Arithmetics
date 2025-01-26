@@ -14,6 +14,14 @@ module addition_stage3#
     output [MENT_WIDTH-1:0] addition_out  
 );
 
-    assign addition_out = operand1_in + operand2_in;
+    //TO_GET_TWO'S_COMPLIMENT_OF_OPERAND2
+    wire   [MENT_WIDTH-1:0] operand2_intermediate; 
+    
+    //RESOURCE_SHARING : USING_JUST_ONE_ADDITION_MODULE
+    assign operand2_inter = opcode_in ? (~operand2_in + 1'b1)
+                                      :   operand2_in;
+
+    //ACTUAL_ADDITION_OF_MENTISSAS
+    assign addition_out   = operand1_in + operand2_inter;
 
 endmodule
