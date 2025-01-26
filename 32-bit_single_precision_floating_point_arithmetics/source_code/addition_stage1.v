@@ -21,7 +21,7 @@ module addition_stage1#
     
 	//OUTPUT_TO_STAGE3 : MENTISSA_ADDITION
 	output [MENT_WIDTH-1:0] bigger_operand_out,
-	
+	 
 	//OUTPUT_TO_STAGE4 : NORMALIZER
 	output [EXPO_WIDTH-1:0] bigger_exponent_out
 );

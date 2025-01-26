@@ -54,7 +54,7 @@ module floating_point_addition#
          .smaller_operand_out (smaller_operand), // TO_STAGE2
          .bigger_exponent_out (bigger_exponent), // TO_STAGE4
         );
-
+ 
     //CONTROL_UNIT_FOR_FLOATING_ADDITION
     addition_control_unit control_unit
         (
@@ -87,7 +87,16 @@ module floating_point_addition#
     //STAGE4: NORMALIZER
     addition_stage4 stage4 
         (
+         .
+         .
+         .
+         . 
+        );
 
+    //STAGE5 : ROUNDING_HARDWARE
+    addition_stage5 stage5 
+        (
+            
         );
 
 endmodule
