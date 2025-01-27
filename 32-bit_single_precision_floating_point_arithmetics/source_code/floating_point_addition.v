@@ -81,14 +81,15 @@ module floating_point_addition#
          .operand1_in  (bigger_operand),         // FROM_STAGE1
          .operand2_in  (rshift_operand),         // FROM_STAGE2
          .opcode_in    (opcode_in),              // FROM_TOP
-         .addition_out (addition_out)            // TO_STAGE4
+         .addition_in  (addition_out)            // TO_STAGE4
         );
 
-    //STAGE4: NORMALIZER
+    //STAGE4: MENTISSA_NORMALIZER
     addition_stage4 stage4 
         (
-         .
-         .
+         .addition_in  (addition_out),           // FROM_STAGE3
+         .normalized_mentissa_out 
+                       (normalized_mentissa),    // TO_STAGE5
         );
 
     //STAGE5 : ROUNDING_HARDWARE
