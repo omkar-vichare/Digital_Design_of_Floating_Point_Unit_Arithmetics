@@ -53,6 +53,7 @@ module addition_control_unit#
         end         
     end
     
+    //ASSIGNING_PROCEDURAL_VALUE_TO_WIRED_OUTPUT
     assign valid_bit_out          = valid_bit;
     assign normalize_position_out = position;
 

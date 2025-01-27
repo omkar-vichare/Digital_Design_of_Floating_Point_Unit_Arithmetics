@@ -39,7 +39,6 @@ module floating_point_addition#
     wire   [EXPO_WIDTH-1      :0] bigger_exponent;
     wire   [$clog2(MENT_WIDTH):0] normalize_position;
 
-
     //BIT_SWIZZLING
     assign {sign1,exponent1,mentissa1} = floating1_in;
     assign {sign2,exponent2,mentissa2} = floating2_in;
@@ -64,11 +63,14 @@ module floating_point_addition#
          .exp_diff_in  (exp_diff),               // FROM_STAGE1
         //WARNING : CREATING_COMBINATIONAL_LOOP ???
         //          I THINK IT'S NOT
+         .addition_in  (addition_out)            // FROM_STAGE3
          .mux1_sel_out (mux1_sel),               // TO_STAGE1
          .mux2_sel_out (mux2_sel),               // TO_STAGE1
          .mux3_sel_out (mux3_sel),               // TO_STAGE1
          .rshift_out   (rshift_by),              // TO_STAGE2
-         .addition_in  (addition_out)            // FROM_STAGE3
+         .normalize_position_out                 // TO_STAGE4
+                       (normalize_position),
+         .valid_bit_out(valid_bit)               // TO_STAGE4
         );
     
     //STAGE2 : ALIGNING_EXPONENT
@@ -103,9 +105,7 @@ module floating_point_addition#
         );
 
     //STAGE5 : ROUNDING_HARDWARE
-    addition_stage5 stage5 
-        (
-
-        );
+    
+    assign floating_addition_out = {};
 
 endmodule
