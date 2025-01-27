@@ -1,5 +1,6 @@
 module addition_control_unit#
 (
+    parameter integer DATA_WIDTH = 32,
     parameter integer MENT_WIDTH = 23,
     parameter integer EXPO_WIDTH = 8
 )
@@ -8,6 +9,9 @@ module addition_control_unit#
     input  [EXPO_WIDTH        :0] exp_diff_in,
     //INPUT_FROM_STAGE3 : MENTISSA_ADDITION
     input  [MENT_WIDTH        :0] addition_in, 
+    //INPUT_FROM_TOP
+    input  [DATA_WIDTH-1      :0] floating1_in,
+    input  [DATA_WIDTH-1      :0] floating2_in,
 
     //OUTPUT_TO_STAGE1  : EXPONENT_COMPARISION
     output                        mux1_sel_out,
@@ -21,6 +25,15 @@ module addition_control_unit#
     output [$clog2(MENT_WIDTH):0] normalize_position_out, 
     output                        valid_bit_out;
 );
+
+    //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
+    wire                          sign1    ,sign2;    
+    wire   [EXPO_WIDTH-1      :0] exponent1,exponent2;
+    wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
+
+    //BIT_SWIZZLING
+    assign {sign1,exponent1,mentissa1} = floating1_in;
+    assign {sign2,exponent2,mentissa2} = floating2_in;
 
     //TO_GET_POSITION_OF_1ST_LOGIC1_CHECKING_FROM_MSB
     reg [$clog2(MENT_WIDTH):0] position;

@@ -26,7 +26,7 @@ module addition_stage4#
     //NORMALIZATION_OF_MENTISSA
     always@(*)begin
         if(valid_bit_in)begin
-            normalized_mentissa_proc = addition << normalize_position_in;
+            normalized_mentissa_proc = addition_in << normalize_position_in;
         end else begin
             normalized_mentissa_proc = ({MENT_WIDTH-1}'b0);
         end

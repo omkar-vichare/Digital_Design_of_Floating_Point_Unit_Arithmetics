@@ -14,10 +14,6 @@ module floating_point_addition#
     //32_BIT_FLOATING_OUTPUT
     output [DATA_WIDTH-1      :0] floating_addition_out
 );
-    //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
-    wire                          sign1    ,sign2;    
-    wire   [EXPO_WIDTH-1      :0] exponent1,exponent2;
-    wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
     
     //WIRES_FOR_STAGE1 : EXPONENT_COMPARISION    
     wire   [EXPO_WIDTH        :0] exp_diff;
@@ -39,10 +35,6 @@ module floating_point_addition#
     wire   [EXPO_WIDTH-1      :0] bigger_exponent;
     wire   [$clog2(MENT_WIDTH):0] normalize_position;
 
-    //BIT_SWIZZLING
-    assign {sign1,exponent1,mentissa1} = floating1_in;
-    assign {sign2,exponent2,mentissa2} = floating2_in;
-
     //STAGE1 : EXPONENT_COMPARISION
     addition_stage1 stage1
         (
@@ -63,6 +55,8 @@ module floating_point_addition#
          .exp_diff_in  (exp_diff),               // FROM_STAGE1
         //WARNING : CREATING_COMBINATIONAL_LOOP ???
         //          I THINK IT'S NOT
+         .floating1_in (floating1_in),           // FROM_TOP
+         .floating2_in (floating2_in),           // FROM_TOP
          .addition_in  (addition_out)            // FROM_STAGE3
          .mux1_sel_out (mux1_sel),               // TO_STAGE1
          .mux2_sel_out (mux2_sel),               // TO_STAGE1
