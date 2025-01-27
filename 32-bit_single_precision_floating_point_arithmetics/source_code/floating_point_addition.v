@@ -65,10 +65,10 @@ module floating_point_addition#
          .mux2_sel_out (mux2_sel),               // TO_STAGE1
          .mux3_sel_out (mux3_sel),               // TO_STAGE1
          .rshift_out   (rshift_by),              // TO_STAGE2
-         .normalize_position_out                 // TO_STAGE4
-                       (normalize_position),
          .valid_bit_out(valid_bit),              // TO_STAGE4
          .sign_out     (sign_out)                // TO_TOP
+         .normalize_position_out                 // TO_STAGE4
+                       (normalize_position),
         );
     
     //STAGE2 : ALIGNING_EXPONENT
