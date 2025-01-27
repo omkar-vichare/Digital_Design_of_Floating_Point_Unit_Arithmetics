@@ -6,36 +6,39 @@ module floating_point_addition#
 )
 (
     //32_BIT_FLOATING_INPUT
-    input  [DATA_WIDTH-1:0] floating1_in,
-    input  [DATA_WIDTH-1:0] floating2_in,
+    input  [DATA_WIDTH-1      :0] floating1_in,
+    input  [DATA_WIDTH-1      :0] floating2_in,
     
     //OPCODE_TO_DECIDE_OPERATION
-    input                   opcode_in,
+    input                         opcode_in,
     //32_BIT_FLOATING_OUTPUT
-    output [DATA_WIDTH-1:0] floating_addition_out
+    output [DATA_WIDTH-1      :0] floating_addition_out
 );
     //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
-    wire                    sign1    ,sign2;    
-    wire   [EXPO_WIDTH-1:0] exponent1,exponent2;
-    wire   [MENT_WIDTH-1:0] mentissa1,mentissa2;
+    wire                          sign1    ,sign2;    
+    wire   [EXPO_WIDTH-1      :0] exponent1,exponent2;
+    wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
     
     //WIRES_FOR_STAGE1 : EXPONENT_COMPARISION    
-    wire   [EXPO_WIDTH  :0] exp_diff,
-    wire                    mux1_sel,
-    wire                    mux2_sel,
-    wire                    mux3_sel,
+    wire   [EXPO_WIDTH        :0] exp_diff;
+    wire                          mux1_sel;
+    wire                          mux2_sel;
+    wire                          mux3_sel;
 
     //WIRES_FOR_STAGE2 : ALIGNING_MENTISSA
-    wire   [EXPO_WIDTH-1:0] rshift_by,
-    wire   [MENT_WIDTH-1:0] smaller_operand, 
+    wire   [EXPO_WIDTH-1      :0] rshift_by;
+    wire   [MENT_WIDTH-1      :0] smaller_operand; 
 
     //WIRES_FOR_STAGE3 : MENTISSA_ADDITION
-    wire   [MENT_WIDTH-1:0] bigger_operand,
-    wire   [MENT_WIDTH-1:0] rshift_operand,
-    wire   [MENT_WIDTH-1:0] addition_out,
+    wire   [MENT_WIDTH-1      :0] bigger_operand;
+    wire   [MENT_WIDTH-1      :0] rshift_operand;
+    wire   [MENT_WIDTH-1      :0] addition_out;
 
-    //WIRES_FOR_STAGE4 : NORMALIZATION
-    wire   [EXPO_WIDTH-1:0] bigger_exponent
+    //WIRES_FOR_STAGE4 : EXPONENT_MENTISSA_NORMALIZER
+    wire                          valid_bit;
+    wire   [EXPO_WIDTH-1      :0] bigger_exponent;
+    wire   [$clog2(MENT_WIDTH):0] normalize_position;
+
 
     //BIT_SWIZZLING
     assign {sign1,exponent1,mentissa1} = floating1_in;
@@ -65,6 +68,7 @@ module floating_point_addition#
          .mux2_sel_out (mux2_sel),               // TO_STAGE1
          .mux3_sel_out (mux3_sel),               // TO_STAGE1
          .rshift_out   (rshift_by),              // TO_STAGE2
+         .addition_in  (addition_out)            // FROM_STAGE3
         );
     
     //STAGE2 : ALIGNING_EXPONENT
@@ -84,12 +88,18 @@ module floating_point_addition#
          .addition_in  (addition_out)            // TO_STAGE4
         );
 
-    //STAGE4: MENTISSA_NORMALIZER
+    //STAGE4: EXPONENT_MENTISSA_NORMALIZER
     addition_stage4 stage4 
         (
-         .addition_in  (addition_out),           // FROM_STAGE3
-         .normalized_mentissa_out 
-                       (normalized_mentissa),    // TO_STAGE5
+         .addition_in        (addition_out),     // FROM_STAGE3
+         .normalize_position_in                  // FROM_CONTROL
+                             (normalize_position),    
+         .valid_bit_in       (valid_bit),        // FROM_CONTROL
+         .bigger_exponent_in (bigger_exponent)   // FROM_STAGE1
+         .normalized_mentissa_out                // TO_STAGE5
+                             (normalized_mentissa),
+         .normalized_exponent_out                // TO_STAGE5
+                             (normalized_exponent)
         );
 
     //STAGE5 : ROUNDING_HARDWARE
