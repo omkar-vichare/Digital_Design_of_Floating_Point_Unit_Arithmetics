@@ -35,6 +35,9 @@ module floating_point_addition#
     wire   [EXPO_WIDTH-1      :0] bigger_exponent;
     wire   [$clog2(MENT_WIDTH):0] normalize_position;
 
+    //WIRES_FOR_CONTROL
+    wire                          sign_out;
+
     //STAGE1 : EXPONENT_COMPARISION
     addition_stage1 stage1
         (
@@ -54,7 +57,7 @@ module floating_point_addition#
         (
          .exp_diff_in  (exp_diff),               // FROM_STAGE1
         //WARNING : CREATING_COMBINATIONAL_LOOP ???
-        //          I THINK IT'S NOT
+        //          BUT RN, I THINK IT'S NOT
          .floating1_in (floating1_in),           // FROM_TOP
          .floating2_in (floating2_in),           // FROM_TOP
          .addition_in  (addition_out)            // FROM_STAGE3
@@ -64,7 +67,8 @@ module floating_point_addition#
          .rshift_out   (rshift_by),              // TO_STAGE2
          .normalize_position_out                 // TO_STAGE4
                        (normalize_position),
-         .valid_bit_out(valid_bit)               // TO_STAGE4
+         .valid_bit_out(valid_bit),              // TO_STAGE4
+         .sign_out     (sign_out)                // TO_TOP
         );
     
     //STAGE2 : ALIGNING_EXPONENT
@@ -99,7 +103,9 @@ module floating_point_addition#
         );
 
     //STAGE5 : ROUNDING_HARDWARE
-    
-    assign floating_addition_out = {};
+    //YET_TO_BE_DESIGN... COMING_SOON...
+
+    //32_BIT_FLOATING_POINT_ADDITION_SUBTRACTION_OUTPUT_IN_NORMALIZED_FORM
+    assign floating_addition_out = {sign_out,normalized_exponent,normalized_mentissa};
 
 endmodule

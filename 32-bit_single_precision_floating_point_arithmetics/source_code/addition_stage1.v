@@ -29,6 +29,11 @@ module addition_stage1#
 	//INTERNEDIATE_SIGNAL_FOR_TOWS'S_COMPLIMENT
 	wire   [EXPO_WIDTH  :0] twos_compliment;
 	
+	//WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
+    wire                          sign1    ,sign2;    
+    wire   [EXPO_WIDTH-1      :0] exponent1,exponent2;
+    wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
+	
 	//BIT_SWIZZLING
 	assign {sign1,exponent1,mentissa1} = floating1_in;
     assign {sign2,exponent2,mentissa2} = floating2_in;

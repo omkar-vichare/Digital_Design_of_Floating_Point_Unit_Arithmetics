@@ -18,12 +18,16 @@ module addition_control_unit#
     output                        mux2_sel_out,
     output                        mux3_sel_out,
 
+    //OUTPUT_TO_TOP   
+    output                        sign_out;
+
     //OUTPUT_TO_STAGE2  : ALIGNING_MENISSA
     output [EXPO_WIDTH-1      :0] rshift_out,
 
     //OUTPUT_TO_STAGE4  : EXPONENT_MENTISSA_NORMALIZER
     output [$clog2(MENT_WIDTH):0] normalize_position_out, 
     output                        valid_bit_out;
+ 
 );
 
     //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
@@ -36,10 +40,12 @@ module addition_control_unit#
     assign {sign2,exponent2,mentissa2} = floating2_in;
 
     //TO_GET_POSITION_OF_1ST_LOGIC1_CHECKING_FROM_MSB
-    reg [$clog2(MENT_WIDTH):0] position;
+    reg    [$clog2(MENT_WIDTH):0] position;
     //TO_DISTINGUISH_BETWEEN_REDUNDANT_POSITION_VALUES
-    reg                        valid_bit;
-    
+    reg                           valid_bit;
+    //REG_TO_MAKE_USE_IF_ELSE_INTO_PROCEDURAL_BLOCK
+    reg                           sign_proc;
+
     //FOR_LOOP_VARIABLE : TO_FIND_NORMALIZATION_POINT
     integer i;
 
@@ -69,5 +75,27 @@ module addition_control_unit#
     //ASSIGNING_PROCEDURAL_VALUE_TO_WIRED_OUTPUT
     assign valid_bit_out          = valid_bit;
     assign normalize_position_out = position;
+
+    //BLOCK_TO_DECIDE_SIGN_BIT_OF_RESULTANT_OUTPUT
+    always@(*)begin
+        if(exp_diff_in[EXPO_WIDTH])begin  
+            sign_proc = sign2;         // EXPONENT2 > EXPONENT1
+        end else begin
+            if ((!exp_diff_in[EXPO_WIDTH] && exponent1!=exponent2))begin
+                sign_proc = sign1;     // EXPONENT1 > EXPONENT2
+                                       // CONDITION_(exp_diff_in[EXPO_WIDTH])
+                                       // IS_ZERO_FOR_BOTH_EQUAL_AND_UNEQUAL
+                                       // EXPONENTS_IF : EXPO1 > EXPO2
+            end else begin             // MEANS_BOTH_EXPONENTS_ARE_EQUAL
+                if (mentissa1>mentissa2)begin 
+                    sign_proc = sign1; // SO_CHECK_FOR_MENTISSA       
+                end else begin
+                    sign_proc = sign2;
+                end
+            end
+        end
+    end
+
+    assign sign_out = sign_proc;
 
 endmodule
