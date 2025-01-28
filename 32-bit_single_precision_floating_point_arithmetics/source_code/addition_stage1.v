@@ -58,6 +58,6 @@ module addition_stage1#
 	// SELECT_BIGGER_EXPONENT
 	// FOR_LATER_USE_DURING_NORMALIZATION
 
-	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2);
+	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2);	//bigger_operand_out was given instead of bigger_exponent_out. Changed to the bigger_exponent_out
 
 endmodule
