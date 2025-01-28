@@ -13,8 +13,8 @@ module addition_stage1#
 	input                   mux2_sel_in,
 	input                   mux3_sel_in,
 	
-	//OUTPUT_TO_CONTROL_UNIT
-	output [EXPO_WIDTH  :0] exp_diff_out,
+	//OUTPUT_TO_CONTROL_UNIT_GIVEN_AS_INPUT_TO_CONTROL
+	output [EXPO_WIDTH  :0] exp_diff_out,                   
     
 	//OUTPUT_TO_STAGE2 : ALIGNING_MENTISSA
     output [MENT_WIDTH-1:0] smaller_operand_out,
