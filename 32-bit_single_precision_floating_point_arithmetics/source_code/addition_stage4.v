@@ -1,34 +1,48 @@
 module addition_stage4#
 (
-    parameter integer MENT_WIDTH = 23 
+    parameter integer MENT_WIDTH = 23,
+    parameter integer EXPO_WIDTH = 8 
 )
 (
-    //INPUT_FROM_STAGE3
-    input  [MENT_WIDTH-1:0] addition_in,
+    //INPUT_FROM_STAGE1 : EXPONENT_COMPARISION
+    input  [EXPO_WIDTH-1      :0] bigger_exponent_in,
+
+    //INPUT_FROM_STAGE3 : MENTISSA_ADDITION
+    input  [MENT_WIDTH-1      :0] addition_in,
     
-    //OUTPUT_TO_STAGE5
-    output [MENT_WIDTH-1:0] normalized_mentissa
+    //INPUT_FROM_CONTROL
+    input  [$clog2(MENT_WIDTH):0] normalize_position_in,
+    input                         valid_bit_in, 
+
+    //OUTPUT_TO_STAGE5  : ROUNDING_HARDWARE
+    output [MENT_WIDTH-1      :0] normalized_mentissa_out,
+    output [EXPO_WIDTH-1      :0] normalized_exponent_out
 );
 
-    //TO_GET_POSITION_OF_1ST_LOGIC1_CHECKING_FROM_MSB
-    reg [4:0] position;
-    //TO_DISTINGUISH_BETWEEN_REDUNDANT_POSITION_VALUES
-    reg       valid_bit;
-
-    //FOR_LOOP_VARIABLE
-    integer i;
-
-    //FOR_LOOP_BEGINS_FROM_MSB_TILL_LAST_POSITION
-    always @(*) begin
-        position  = 5'd0;
-        valid_bit = 1'd1;
-        for(i = 5'd31; i >= 0 ; i = i - 1)begin
-            if(addition_in[i])begin
-                position  = i;
-                valid_bit = 1'd1; 
-                break; //ONCE_FOUND_NO_NEED_TO_FURTHER_ITERATE
-            end
-        end         
+    //REG_VARIABLE_FOR_PROCEDURAL_BLOCK
+    reg normalized_mentissa_proc;
+    reg normalized_exponent_proc;
+    
+    //NORMALIZATION_OF_MENTISSA
+    always@(*)begin
+        if(valid_bit_in)begin
+            normalized_mentissa_proc = addition_in << normalize_position_in;
+        end else begin
+            normalized_mentissa_proc = ({MENT_WIDTH-1}'b0);
+        end
     end
+
+    //NORMALIZATION_OF_EXPONENT
+    always@(*)begin
+        if(valid_bit_in)begin
+            normalized_exponent_proc = bigger_exponent_in - normalize_position_in;
+        end else begin
+            normalized_exponent_proc = ({EXPO_WIDTH-1}'b0);
+        end
+    end
+
+    //ASSIGNING_PROCEDURAL_VALUE_TO_WIRED_OUTPUT
+    assign normalized_mentissa_out = normalized_mentissa_proc;
+    assign normalized_exponent_out = normalized_exponent_proc;
 
 endmodule

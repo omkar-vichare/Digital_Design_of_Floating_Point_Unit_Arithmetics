@@ -4,12 +4,12 @@ module addition_stage2#
     paramter integer EXPO_WIDTH = 8
 )
 (
-    //INPUT_FROM_STAGE1
+    //INPUT_FROM_STAGE1 : EXPONENT_COMPARISION
     input  [MENT_WIDTH-1:0] smaller_operand_in, 
     //INPUT_FROM_CONTROL
     input  [EXPO_WIDTH-1:0] rshift_in,    
 
-    //OUTPUT_TO_STAGE3
+    //OUTPUT_TO_STAGE3 : MENTISSA_ADDITION
     output [MENT_WIDTH-1:0] smaller_operand_out
 );
 
