@@ -20,7 +20,7 @@ module addition_stage3#
     //RESOURCE_SHARING : USING_JUST_ONE_ADDITION_MODULE
     assign operand2_inter = opcode_in ? (~operand2_in + 1'b1)
                                       :   operand2_in;
-
+ 
     //ACTUAL_ADDITION_OF_MENTISSAS
     assign addition_out   = operand1_in + operand2_inter;
 
