@@ -32,9 +32,11 @@ module fp_multiplier#
     input [DATA_WIDTH-1:0] floating1_in, 
     input [DATA_WIDTH-1:0] floating2_in,
     output [DATA_WIDTH-1:0] multi_out 
+    output except
 );
+
     //Extracting sign from input
-    wire s1 = floating1_in[DATA_WIDTH-1];
+    wire s1 = floating1_in[DATA_WIDTH-1]; //bit [31]
     //Extracting exponent from input
     wire [EXPO_WIDTH-1:0] e1 = floating1_in[DATA_WIDTH-2:MENT_WIDTH];
     //Extracting mantissa from input
@@ -48,11 +50,18 @@ module fp_multiplier#
     wire [MENT_WIDTH-1:0] m2 = floating2_in[MENT_WIDTH-1:0];
 
 
-    //sign of the multi_out i.e. EXOR 
-    wire s3 = s1 ^ s2;
+    wire rounded_product_bit; //for rounding of mantissa multiplication
+    wire num_normalised; //if normalised then 1 else 0 ---> used for left shifting the product if required
+
+
+    //exception if any of th exponent is 255
+    assign except = (&e1) | (&e2);
 
     //adding the eponents and subtracting the bias i.e. 127 for single precision
     wire [EXPO_WIDTH:0] exp_sum = e1 + e2 - 8'd127;
+    
+    //sign of the multi_out i.e. EXOR 
+    wire final_sign = s1 ^ s2;
 
     //implicit 1 needs to be appended
     wire [MENT_WIDTH:0] m1_ext = {1'b1, m1};
@@ -60,38 +69,24 @@ module fp_multiplier#
 
     //actual multiplication of mantissas
     wire [RES_WIDTH-1:0] mantissa_product = m1_ext * m2_ext;
-
-
+    wire [RES_WIDTH-1:0] normalised_mantissa_multi;
+    wire [MENT_WIDTH-1:0]final_mantissa; //23 bit final mantissa
     //NORMALIZATION
-    reg [MENT_WIDTH-1:0] m3;  //final mantissa after left shifting             
-    reg [EXPO_WIDTH-1:0] e3;   //final exponent after left shifting             
-	reg [RES_WIDTH-1:0] shifted_mant_out;
-    integer shift_amount;         
-	integer i;
-	
-    always @(*) begin
-        shift_amount = 0;
-//        for (i = 47; i >= 0; i = i - 1) begin
-//            if (mantissa_product[i] == 1) begin
-//                shift_amount = 47 - i;
-//            end
-//        end
-//NEED TO MAKE CHNAGES HERE
-    //normalizing product and shifting the exponent if needed
-        if (shift_amount == 0) begin
-            m3 = mantissa_product[46:24];
-            e3 = exp_sum + 1;
-        end else begin
-        	shifted_mant_out = (mantissa_product >> shift_amount);
-            m3 = shifted_mant_out[46:24];
-            e3 = exp_sum - shift_amount + 1;
-        end
-    end
+    assign rounded_product_bit = |mantissa_product[MENT_WIDTH-1:0]; //last 22 its are or'ed
+
+    assign num_normalised = rounded_product_bit ? 1'b1 : 1'b0;
+    
+    // shifting the final output based on the normalisation flag num_normalised (if 1 keep the product as it is otherwise leeftshift by 1 bit)
+    assign normalised_mantissa_multi = num_normalised ? mantissa_product : mantissa_product << 1;
+
+    //final mantissa based on the method of rounding given according to the IEEE 754 format
+    assign final_mantissa = normalised_mantissa_multi[46:24] + (normalised_mantissa_multi[23]  &  rounded_product_bit);
 
     //handling the underflow/overflow
     wire [EXPO_WIDTH-1:0] final_exp = (e3[8]) ? 8'd0 : e3; 
+
     // Assemble final multi_out
-    assign multi_out = {s3, final_exp, m3};
+    assign multi_out = {final_sign, final_exp, final_mantissa};
 
 endmodule
 
