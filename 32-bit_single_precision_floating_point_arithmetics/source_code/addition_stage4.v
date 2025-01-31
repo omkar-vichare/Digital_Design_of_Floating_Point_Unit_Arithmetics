@@ -28,7 +28,7 @@ module addition_stage4#
         if(valid_bit_in)begin
             normalized_mentissa_proc = addition_in << normalize_position_in;
         end else begin
-            normalized_mentissa_proc = ({MENT_WIDTH-1}'b0);
+            normalized_mentissa_proc = {(MENT_WIDTH-1){1'b0}};
         end
     end
 
@@ -37,7 +37,7 @@ module addition_stage4#
         if(valid_bit_in)begin
             normalized_exponent_proc = bigger_exponent_in - normalize_position_in;
         end else begin
-            normalized_exponent_proc = ({EXPO_WIDTH-1}'b0);
+            normalized_exponent_proc = {(EXPO_WIDTH-1){1'b0}};
         end
     end
 

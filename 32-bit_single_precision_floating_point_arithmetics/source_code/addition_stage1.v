@@ -2,7 +2,7 @@ module addition_stage1#
 (
 	parameter integer DATA_WIDTH = 32,
 	parameter integer MENT_WIDTH = 23,
-	parameter integer EXPO_WIDTH = 8,
+	parameter integer EXPO_WIDTH = 8
 )
 (
 	//INPUT_FROM_ADDITION_TOP_MODULE
@@ -30,9 +30,9 @@ module addition_stage1#
 	wire   [EXPO_WIDTH  :0] twos_compliment;
 	
 	//WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
-    wire                          sign1    ,sign2;    
-    wire   [EXPO_WIDTH-1      :0] exponent1,exponent2;
-    wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
+    wire                    sign1    ,sign2;    
+    wire   [EXPO_WIDTH-1:0] exponent1,exponent2;
+    wire   [MENT_WIDTH-1:0] mentissa1,mentissa2;
 	
 	//BIT_SWIZZLING
 	assign {sign1,exponent1,mentissa1} = floating1_in;

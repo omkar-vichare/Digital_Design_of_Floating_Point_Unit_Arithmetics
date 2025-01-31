@@ -19,15 +19,14 @@ module addition_control_unit#
     output                        mux3_sel_out,
 
     //OUTPUT_TO_TOP   
-    output                        sign_out;
+    output                        sign_out,
 
     //OUTPUT_TO_STAGE2  : ALIGNING_MENISSA
     output [EXPO_WIDTH-1      :0] rshift_out,
 
     //OUTPUT_TO_STAGE4  : EXPONENT_MENTISSA_NORMALIZER
     output [$clog2(MENT_WIDTH):0] normalize_position_out, 
-    output                        valid_bit_out;
- 
+    output                        valid_bit_out
 );
 
     //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
@@ -67,7 +66,7 @@ module addition_control_unit#
             if(addition_in[i])begin
                 position  = i;
                 valid_bit = 1'd1; 
-                break; //ONCE_FOUND_NO_NEED_TO_FURTHER_ITERATE
+                //break; //ONCE_FOUND_NO_NEED_TO_FURTHER_ITERATE
             end
         end         
     end

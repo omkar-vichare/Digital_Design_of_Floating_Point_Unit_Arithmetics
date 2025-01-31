@@ -1,7 +1,7 @@
 module addition_stage2#
 (
-    paramter integer MENT_WIDTH = 23,
-    paramter integer EXPO_WIDTH = 8
+    parameter integer MENT_WIDTH = 23,
+    parameter integer EXPO_WIDTH = 8
 )
 (
     //INPUT_FROM_STAGE1 : EXPONENT_COMPARISION
