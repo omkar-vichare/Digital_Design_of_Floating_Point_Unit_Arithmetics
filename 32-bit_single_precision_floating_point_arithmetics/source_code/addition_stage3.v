@@ -18,10 +18,10 @@ module addition_stage3#
     wire   [MENT_WIDTH-1:0] operand2_intermediate; 
     
     //RESOURCE_SHARING : USING_JUST_ONE_ADDITION_MODULE
-    assign operand2_inter = opcode_in ? (~{1'b1,operand2_in} + 1'b1)
+    assign operand2_intermediate = opcode_in ? (~{1'b1,operand2_in} + 1'b1)
                                       :   {1'b1,operand2_in};
 
     //ACTUAL_ADDITION_OF_MENTISSAS
-    assign addition_out   = {1'b1,operand1_in} + operand2_inter;
+    assign addition_out   = {1'b1,operand1_in} + operand2_intermediate;
 
 endmodule

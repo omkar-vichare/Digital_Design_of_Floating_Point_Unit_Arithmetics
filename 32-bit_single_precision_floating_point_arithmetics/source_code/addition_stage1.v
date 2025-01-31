@@ -13,8 +13,8 @@ module addition_stage1#
 	input                   mux2_sel_in,
 	input                   mux3_sel_in,
 	
-	//OUTPUT_TO_CONTROL_UNIT
-	output [EXPO_WIDTH  :0] exp_diff_out,
+	//OUTPUT_TO_CONTROL_UNIT_GIVEN_AS_INPUT_TO_CONTROL
+	output [EXPO_WIDTH  :0] exp_diff_out,                   
     
 	//OUTPUT_TO_STAGE2 : ALIGNING_MENTISSA
     output [MENT_WIDTH-1:0] smaller_operand_out,
@@ -58,6 +58,6 @@ module addition_stage1#
 	// SELECT_BIGGER_EXPONENT
 	// FOR_LATER_USE_DURING_NORMALIZATION
 
-	assign bigger_operand_out  = (mux3_sel_in ? exponent1 : exponent2);
+	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2);	//bigger_operand_out was given instead of bigger_exponent_out. Changed to the bigger_exponent_out
 
 endmodule
