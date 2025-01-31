@@ -20,8 +20,8 @@ module addition_stage4#
 );
 
     //REG_VARIABLE_FOR_PROCEDURAL_BLOCK
-    reg normalized_mentissa_proc;
-    reg normalized_exponent_proc;
+    reg    [MENT_WIDTH-1      :0] normalized_mentissa_proc;
+    reg    [EXPO_WIDTH-1      :0] normalized_exponent_proc;
     
     //NORMALIZATION_OF_MENTISSA
     always@(*)begin
@@ -35,7 +35,7 @@ module addition_stage4#
     //NORMALIZATION_OF_EXPONENT
     always@(*)begin
         if(valid_bit_in)begin
-            normalized_exponent_proc = bigger_exponent_in - normalize_position_in;
+            normalized_exponent_proc = bigger_exponent_in - {3'b000,normalize_position_in};
         end else begin
             normalized_exponent_proc = {(EXPO_WIDTH-1){1'b0}};
         end
