@@ -31,7 +31,7 @@ module fp_multiplier#
 (
     input [DATA_WIDTH-1:0] floating1_in, 
     input [DATA_WIDTH-1:0] floating2_in,
-    output [DATA_WIDTH-1:0] multi_out 
+    output [DATA_WIDTH-1:0] multi_out,
     output except
 );
 
@@ -71,9 +71,11 @@ module fp_multiplier#
     wire [RES_WIDTH-1:0] mantissa_product = m1_ext * m2_ext;
     wire [RES_WIDTH-1:0] normalised_mantissa_multi;
     wire [MENT_WIDTH-1:0]final_mantissa; //23 bit final mantissa
-    //NORMALIZATION
-    assign rounded_product_bit = |mantissa_product[MENT_WIDTH-1:0]; //last 22 its are or'ed
 
+    //NORMALIZATION
+    assign rounded_product_bit = |mantissa_product[MENT_WIDTH-1:0]; //last 22 bits are or'ed
+
+    //intermediate normalization flag
     assign num_normalised = rounded_product_bit ? 1'b1 : 1'b0;
     
     // shifting the final output based on the normalisation flag num_normalised (if 1 keep the product as it is otherwise leeftshift by 1 bit)
