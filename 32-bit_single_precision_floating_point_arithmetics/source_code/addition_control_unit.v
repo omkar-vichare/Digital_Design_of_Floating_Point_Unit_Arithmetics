@@ -59,18 +59,51 @@ module addition_control_unit#
     assign rshift_out = exp_diff_in[EXPO_WIDTH-1:0];
 
     //FOR_LOOP_BEGINS_FROM_MSB_TILL_LAST_POSITION
-    always @(*) begin
-        position  = 5'd0;
-        valid_bit = 1'd1;
-        for(i = 5'd31; i >= 0 ; i = i - 1)begin
-            if(addition_in[i])begin
-                position  = i;
-                valid_bit = 1'd1; 
-                //break; //ONCE_FOUND_NO_NEED_TO_FURTHER_ITERATE
-            end
-        end         
-    end
-    
+    // always @(*) begin
+    //     position  = 5'd0;
+    //     valid_bit = 1'd1;
+    //     for(i = 5'd31; i >= 0 ; i = i - 1)begin
+    //         if(addition_in[i])begin
+    //             position  = i;
+    //             valid_bit = 1'd1; 
+    //             //break; //ONCE_FOUND_NO_NEED_TO_FURTHER_ITERATE
+    //         end
+    //     end         
+    // end
+    // COMMENTED_ABOVE_LOGIC_INSTEAD_PRIORITY_LOGIC_IS_USED
+
+    //PRIORITY_ENCODER_TO_GET_1ST_LOGIC1_WHILE_CHECKING_FROM_MSB
+    always@(*)begin
+        casez(addition_in)
+            24'b1???_????_????_????_????_???? : position = 24'd23;
+            24'b01??_????_????_????_????_???? : position = 24'd22;
+            24'b001?_????_????_????_????_???? : position = 24'd21;
+            24'b0001_????_????_????_????_???? : position = 24'd20;
+            24'b0000_1???_????_????_????_???? : position = 24'd19;
+            24'b0000_01??_????_????_????_???? : position = 24'd18;
+            24'b0000_001?_????_????_????_???? : position = 24'd17;
+            24'b0000_0001_????_????_????_???? : position = 24'd16;
+            24'b0000_0000_1???_????_????_???? : position = 24'd15;
+            24'b0000_0000_01??_????_????_???? : position = 24'd14;
+            24'b0000_0000_001?_????_????_???? : position = 24'd13;
+            24'b0000_0000_0001_????_????_???? : position = 24'd12;
+            24'b0000_0000_0000_1???_????_???? : position = 24'd11;
+            24'b0000_0000_0000_01??_????_???? : position = 24'd10;
+            24'b0000_0000_0000_001?_????_???? : position = 24'd09;
+            24'b0000_0000_0000_0001_????_???? : position = 24'd08;
+            24'b0000_0000_0000_0000_1???_???? : position = 24'd07;
+            24'b0000_0000_0000_0000_01??_???? : position = 24'd06;
+            24'b0000_0000_0000_0000_001?_???? : position = 24'd05;
+            24'b0000_0000_0000_0000_0001_???? : position = 24'd04;
+            24'b0000_0000_0000_0000_0000_1??? : position = 24'd03;
+            24'b0000_0000_0000_0000_0000_01?? : position = 24'd02;
+            24'b0000_0000_0000_0000_0000_001? : position = 24'd01;
+            24'b0000_0000_0000_0000_0000_0001 : position = 24'd00;
+            24'b0000_0000_0000_0000_0000_0000 : position = 24'd00;
+            default                           : position = 24'd00;
+        endcase
+    end 
+
     //ASSIGNING_PROCEDURAL_VALUE_TO_WIRED_OUTPUT
     assign valid_bit_out          = valid_bit;
     assign normalize_position_out = position;
