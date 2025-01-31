@@ -31,7 +31,7 @@ module floating_point_addition#
     wire   [MENT_WIDTH-1      :0] addition_out;
 
     //WIRES_FOR_STAGE4 : EXPONENT_MENTISSA_NORMALIZER
-    wire                          valid_bit;
+    //wire                          valid_bit;
     wire   [EXPO_WIDTH-1      :0] bigger_exponent;
     wire   [$clog2(MENT_WIDTH):0] normalize_position;
     wire   [MENT_WIDTH-1      :0] normalized_mentissa;
@@ -67,7 +67,7 @@ module floating_point_addition#
          .mux2_sel_out (mux2_sel),               // TO_STAGE1
          .mux3_sel_out (mux3_sel),               // TO_STAGE1
          .rshift_out   (rshift_by),              // TO_STAGE2
-         .valid_bit_out(valid_bit),              // TO_STAGE4
+         //.valid_bit_out(valid_bit),            // TO_STAGE4
          .sign_out     (sign_out),               // TO_TOP
          .normalize_position_out                 // TO_STAGE4
                        (normalize_position)
@@ -96,7 +96,7 @@ module floating_point_addition#
          .addition_in        (addition_out),     // FROM_STAGE3
          .normalize_position_in                  // FROM_CONTROL
                              (normalize_position),    
-         .valid_bit_in       (valid_bit),        // FROM_CONTROL
+         //.valid_bit_in       (valid_bit),      // FROM_CONTROL
          .bigger_exponent_in (bigger_exponent),  // FROM_STAGE1
          .normalized_mentissa_out                // TO_STAGE5
                              (normalized_mentissa),
