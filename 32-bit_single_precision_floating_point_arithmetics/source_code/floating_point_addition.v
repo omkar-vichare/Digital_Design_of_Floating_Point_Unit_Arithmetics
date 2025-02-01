@@ -27,7 +27,7 @@ module floating_point_addition#
 
     //WIRES_FOR_STAGE3 : MENTISSA_ADDITION
     wire   [MENT_WIDTH-1      :0] bigger_operand;
-    wire   [MENT_WIDTH-1       :0] rshift_operand;
+    wire   [MENT_WIDTH-1      :0] rshift_operand;
     wire   [MENT_WIDTH-1      :0] addition_out;
 
     //WIRES_FOR_STAGE4 : EXPONENT_MENTISSA_NORMALIZER

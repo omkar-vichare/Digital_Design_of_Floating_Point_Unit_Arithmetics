@@ -20,8 +20,8 @@ module addition_stage4#
 );
 
     //REG_VARIABLE_FOR_PROCEDURAL_BLOCK
-    reg normalized_mentissa_proc;
-    reg normalized_exponent_proc;
+    reg    [MENT_WIDTH-1      :0] normalized_mentissa_proc;
+    reg    [EXPO_WIDTH-1      :0] normalized_exponent_proc;
     
     //NORMALIZATION_OF_MENTISSA
     always@(*)begin

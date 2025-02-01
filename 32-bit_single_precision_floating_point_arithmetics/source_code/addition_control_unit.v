@@ -25,8 +25,8 @@ module addition_control_unit#
     output [EXPO_WIDTH        :0] rshift_out,
 
     //OUTPUT_TO_STAGE4  : EXPONENT_MENTISSA_NORMALIZER
-    output [$clog2(MENT_WIDTH):0] normalize_position_out, 
-    output                        valid_bit_out
+    output [$clog2(MENT_WIDTH):0] normalize_position_out 
+    //output                        valid_bit_out
 );
 
     //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
@@ -46,7 +46,7 @@ module addition_control_unit#
     reg                           sign_proc;
 
     //FOR_LOOP_VARIABLE : TO_FIND_NORMALIZATION_POINT
-    integer i;
+    integer i = 0;
 
     // IF_MSB_OF_exp_diff_IS_LOGIC1_THEN_ASSUMPTION_IS_FALSE
     // SO_MSB_IS_LOGIC1_THEN_ALL_SELECT_LINES_SHOULD_BE_ZERO
@@ -107,6 +107,7 @@ module addition_control_unit#
 
     //ASSIGNING_PROCEDURAL_VALUE_TO_WIRED_OUTPUT
     //assign valid_bit_out          = valid_bit;
+
     assign normalize_position_out = 24 - position;
 
     //BLOCK_TO_DECIDE_SIGN_BIT_OF_RESULTANT_OUTPUT
