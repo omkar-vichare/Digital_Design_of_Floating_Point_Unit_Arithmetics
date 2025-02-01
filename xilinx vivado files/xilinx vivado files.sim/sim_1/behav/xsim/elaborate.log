@@ -1,23 +1,11 @@
 Vivado Simulator v2023.1
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot floating_point_addition_behav xil_defaultlib.floating_point_addition xil_defaultlib.glbl -log elaborate.log 
-Using 2 slave threads.
+Running: /home/students/vivado/Vivado/2023.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_floating_point_addition_behav xil_defaultlib.tb_floating_point_addition xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 23 differs from formal bit length 24 for port 'addition_in' [C:/Users/HP/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/32-bit_single_precision_floating_point_arithmetics/source_code/floating_point_addition.v:65]
-WARNING: [VRFC 10-3091] actual bit length 23 differs from formal bit length 24 for port 'addition_out' [C:/Users/HP/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/32-bit_single_precision_floating_point_arithmetics/source_code/floating_point_addition.v:90]
+WARNING: [VRFC 10-3091] actual bit length 24 differs from formal bit length 23 for port 'operand2_in' [/home/students/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/32-bit_single_precision_floating_point_arithmetics/source_code/floating_point_addition.v:95]
+WARNING: [VRFC 10-3091] actual bit length 24 differs from formal bit length 23 for port 'addition_in' [/home/students/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/32-bit_single_precision_floating_point_arithmetics/source_code/floating_point_addition.v:103]
 Completed static elaboration
-Starting simulation data flow analysis
-WARNING: [XSIM 43-4100] "C:/Users/HP/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files/xilinx vivado files.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
-WARNING: [XSIM 43-4100] "C:/Users/HP/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files/xilinx vivado files.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.addition_stage1
-Compiling module xil_defaultlib.addition_control_unit
-Compiling module xil_defaultlib.addition_stage2
-Compiling module xil_defaultlib.addition_stage3
-Compiling module xil_defaultlib.addition_stage4
-Compiling module xil_defaultlib.floating_point_addition
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot floating_point_addition_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

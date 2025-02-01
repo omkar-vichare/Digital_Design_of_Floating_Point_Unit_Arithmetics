@@ -52,12 +52,12 @@ module addition_control_unit#
     // SO_MSB_IS_LOGIC1_THEN_ALL_SELECT_LINES_SHOULD_BE_ZERO
     
     //WHAT_IF_BOTH_EXPO_ARE_EQUAL
-    assign mux1_sel = (exp_diff_in[EXPO_WIDTH] ? 1'b1 : 1'b0);
-    assign mux2_sel = (exp_diff_in[EXPO_WIDTH] ? 1'b1 : 1'b0);
-    assign mux3_sel = (exp_diff_in[EXPO_WIDTH] ? 1'b1 : 1'b0);
+    assign mux1_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b1 : 1'b0);
+    assign mux2_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b1 : 1'b0);
+    assign mux3_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b1 : 1'b0);
 
     //ONLY_MAGNITUDE_IS_REQUIRED_FOR_STAGE2
-    assign rshift_out = exp_diff_in;
+    assign rshift_out   = exp_diff_in;
 
     //FOR_LOOP_BEGINS_FROM_MSB_TILL_LAST_POSITION
     // always @(*) begin

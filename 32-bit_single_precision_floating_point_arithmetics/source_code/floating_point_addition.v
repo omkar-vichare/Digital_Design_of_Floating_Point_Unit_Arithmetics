@@ -27,8 +27,8 @@ module floating_point_addition#
 
     //WIRES_FOR_STAGE3 : MENTISSA_ADDITION
     wire   [MENT_WIDTH-1      :0] bigger_operand;
-    wire   [MENT_WIDTH-1      :0] rshift_operand;
-    wire   [MENT_WIDTH-1      :0] addition_out;
+    wire   [MENT_WIDTH        :0] rshift_operand;
+    wire   [MENT_WIDTH        :0] addition_out;
 
     //WIRES_FOR_STAGE4 : EXPONENT_MENTISSA_NORMALIZER
     //wire                          valid_bit;
@@ -40,11 +40,18 @@ module floating_point_addition#
     //WIRES_FOR_CONTROL
     wire                          sign_out;
 
+    wire   [DATA_WIDTH-2      :0] float1;
+    wire   [DATA_WIDTH-2      :0] float2;
+
+    assign float1 = floating1_in[DATA_WIDTH-2:0];
+    
+    assign float2 = floating2_in[DATA_WIDTH-2:0];
+
     //STAGE1 : EXPONENT_COMPARISION
     addition_stage1 stage1
         (
-         .floating1_in        (floating1_in),    // FROM_TOP
-         .floating2_in        (floating2_in),    // FROM_TOP
+         .floating1_in        (float1),    // FROM_TOP
+         .floating2_in        (float2),    // FROM_TOP
          .mux1_sel_in         (mux1_sel),        // FROM_CONTROL
          .mux2_sel_in         (mux2_sel),        // FROM_CONTROL
          .mux3_sel_in         (mux3_sel),        // FROM_CONTROL

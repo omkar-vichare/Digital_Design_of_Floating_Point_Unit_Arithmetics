@@ -6,8 +6,8 @@ module addition_stage1#
 )
 (
 	//INPUT_FROM_ADDITION_TOP_MODULE
-	input  [DATA_WIDTH-1:0] floating1_in,
-	input  [DATA_WIDTH-1:0] floating2_in,
+	input  [DATA_WIDTH-2:0] floating1_in,
+	input  [DATA_WIDTH-2:0] floating2_in,
 	//INPUT_FROM_CONTROL_UNIT
 	input                   mux1_sel_in,
 	input                   mux2_sel_in,
@@ -39,7 +39,7 @@ module addition_stage1#
 	assign exponent2 = floating2_in[DATA_WIDTH-2 -: EXPO_WIDTH];
 
 	assign mentissa1 = floating1_in[MENT_WIDTH-1 -: MENT_WIDTH];
-	assign mentissa2 = floating1_in[MENT_WIDTH-1 -: MENT_WIDTH];
+	assign mentissa2 = floating2_in[MENT_WIDTH-1 -: MENT_WIDTH];
 
     // REASON_FOR_EXPONRNT_SUBTRACTION
     // 1. TO_GET_MAGNITUDE_TO_PERFROM_RIGHT_SHIFT
