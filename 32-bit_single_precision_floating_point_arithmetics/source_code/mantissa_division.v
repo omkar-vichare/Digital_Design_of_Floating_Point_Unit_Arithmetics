@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+//Mantissa division using newton raphson method
 module division2(
     input [23:0] mantissa_num1,  // 24-bit mantissa num1
     input [23:0] mantissa_num2,  // 24-bit mantissa num2
