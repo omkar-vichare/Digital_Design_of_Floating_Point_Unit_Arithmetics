@@ -8,7 +8,7 @@ module addition_stage4#
     input  [EXPO_WIDTH-1      :0] bigger_exponent_in,
 
     //INPUT_FROM_STAGE3 : MENTISSA_ADDITION
-    input  [MENT_WIDTH-1      :0] addition_in,
+    input  [MENT_WIDTH        :0] addition_in,
     
     //INPUT_FROM_CONTROL
     input  [$clog2(MENT_WIDTH):0] normalize_position_in,

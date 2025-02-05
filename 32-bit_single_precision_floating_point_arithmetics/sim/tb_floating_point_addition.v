@@ -25,11 +25,15 @@ module tb_floating_point_addition#
     );
 
     initial begin
-        floating1_in = 32'b0_10000001_1110_1010_1111_0001_1010_101;
-        floating2_in = 32'b0_10000000_0101_0001_0100_0111_1010_111;
+        floating1_in = 32'b0_10000111_0000_1110_1100_0000_0000_000;
+        floating2_in = 32'b0_10000000_0011_0000_0000_0000_0000_000;
         opcode_in    = 0;
-        $display("flaoting_addition_out = %b_%b_%b",floating_addition_out[31], floating_addition_out[30:23], floating_addition_out[22:0]);
-        #100 $finish();        
+        $display("flaoting_addition_out = %b",floating_addition_out);
+        #100 
+        floating1_in = 32'b0_10000111_0000_1110_1100_0000_0000_000;
+        floating2_in = 32'b0_10000110_1100_0000_0000_0000_0000_000;
+        opcode_in    = 1;
+        #100; $finish();        
     end
 
 endmodule

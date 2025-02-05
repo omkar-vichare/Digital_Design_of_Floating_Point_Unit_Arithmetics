@@ -6,7 +6,7 @@ module addition_stage3#
     //INPUT_FROM_STAGE1 : EXPONENT_COMPARISION
     input  [MENT_WIDTH-1:0] operand1_in,
     //INPUT_FROM_STAGE2 : ALIGNING_MENTISSA
-    input  [MENT_WIDTH-1:0] operand2_in,
+    input  [MENT_WIDTH  :0] operand2_in,
     //INPUT_FROM_TOP
     input                   opcode_in,
 

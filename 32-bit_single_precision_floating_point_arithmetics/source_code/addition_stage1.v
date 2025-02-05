@@ -29,8 +29,7 @@ module addition_stage1#
 	//INTERNEDIATE_SIGNAL_FOR_TOWS'S_COMPLIMENT
 	wire   [EXPO_WIDTH  :0] twos_compliment;
 	
-	//WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
-    //wire                    sign1    ,sign2;    
+	//WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS   
     wire   [EXPO_WIDTH-1:0] exponent1,exponent2;
     wire   [MENT_WIDTH-1:0] mentissa1,mentissa2;
 	
@@ -62,6 +61,6 @@ module addition_stage1#
 	// SELECT_BIGGER_EXPONENT
 	// FOR_LATER_USE_DURING_NORMALIZATION
 
-	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2);	//bigger_operand_out was given instead of bigger_exponent_out. Changed to the bigger_exponent_out
+	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2); //bigger_operand_out was given instead of bigger_exponent_out. Changed to the bigger_exponent_out
 
 endmodule

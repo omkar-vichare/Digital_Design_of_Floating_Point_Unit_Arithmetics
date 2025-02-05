@@ -16,9 +16,10 @@ module addition_stage2#
     wire   [EXPO_WIDTH-1:0] rshift;
 
     //IF_MSB_IS_LOGIC1_IT_IS_POSITIVE_VALUE_ELSE_IT_IS_NEGATIVE_VALUE
+    //DO WE NEED THIS LOGIC?
     assign rshift = (rshift_in[EXPO_WIDTH]) ?    rshift_in[EXPO_WIDTH-1:0]
                                             : ((~rshift_in[EXPO_WIDTH-1:0])+1'b1); 
 
-    assign smaller_operand_out = {1'b1,smaller_operand_in} >> rshift; 
+    assign smaller_operand_out = {1'b1,smaller_operand_in} >> rshift_in; 
 
 endmodule
