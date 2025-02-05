@@ -12,7 +12,7 @@ module addition_control_unit#
     //INPUT_FROM_TOP
     input  [DATA_WIDTH-1      :0] floating1_in,
     input  [DATA_WIDTH-1      :0] floating2_in,
-
+    input                         opcode_in,
     //OUTPUT_TO_STAGE1  : EXPONENT_COMPARISION
     output                        mux1_sel_out,
     output                        mux2_sel_out,
@@ -24,31 +24,34 @@ module addition_control_unit#
     //OUTPUT_TO_STAGE2  : ALIGNING_MENISSA
     output [EXPO_WIDTH        :0] rshift_out,
 
+    //OUTPUT_TO_STAGE3  : MENTISSA_ADDITION
+    output                        equivalent_opcode_out,
+
     //OUTPUT_TO_STAGE4  : EXPONENT_MENTISSA_NORMALIZER
     output [$clog2(MENT_WIDTH):0] normalize_position_out
 );
 
     //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
     wire                          sign1    ,sign2;    
-    wire   [EXPO_WIDTH-1      :0] exponent1,exponent2;
     wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
-
+    wire                          equivalent_opcode;
+    wire                          inter_sel;
+    wire                          sign2_inter;
+    
     //BIT_SWIZZLING
-    assign {sign1,exponent1,mentissa1} = floating1_in;
-    assign {sign2,exponent2,mentissa2} = floating2_in;
+    assign sign1     = floating1_in[DATA_WIDTH-1];
+    assign sign2     = floating2_in[DATA_WIDTH-1];
+
+    assign mentissa1 = floating1_in[MENT_WIDTH-1:0];
+    assign mentissa2 = floating2_in[MENT_WIDTH-1:0];
 
     //TO_GET_POSITION_OF_1ST_LOGIC1_CHECKING_FROM_MSB
     reg    [$clog2(MENT_WIDTH):0] position;
-    //REG_TO_MAKE_USE_IF_ELSE_INTO_PROCEDURAL_BLOCK
-    reg                           sign_proc;
-
-    //FOR_LOOP_VARIABLE : TO_FIND_NORMALIZATION_POINT
-    integer i = 0;
 
     // IF_MSB_OF [ exp_diff ] IS_LOGIC1_THEN_ASSUMPTION_IS_FALSE
     // SO_MSB_IS_LOGIC1_THEN_ALL_SELECT_LINES_SHOULD_BE_ZERO
     
-    //WHAT_IF_BOTH_EXPO_ARE_EQUAL
+    //WHAT_IF_BOTH_EXPO_ARE_EQUAL??
     assign mux1_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b0 : 1'b1);
     assign mux2_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b0 : 1'b1);
     assign mux3_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b0 : 1'b1);
@@ -90,26 +93,19 @@ module addition_control_unit#
 
     assign normalize_position_out = 24 - position;
 
-    //BLOCK_TO_DECIDE_SIGN_BIT_OF_RESULTANT_OUTPUT
-    always@(*)begin
-        if(exp_diff_in[EXPO_WIDTH])begin  
-            sign_proc = sign2;         // EXPONENT2 > EXPONENT1
-        end else begin
-            if ((!exp_diff_in[EXPO_WIDTH] && exponent1!=exponent2))begin
-                sign_proc = sign1;     // EXPONENT1 > EXPONENT2
-                                       // CONDITION_(exp_diff_in[EXPO_WIDTH])
-                                       // IS_ZERO_FOR_BOTH_EQUAL_AND_UNEQUAL
-                                       // EXPONENTS_IF : EXPO1 > EXPO2
-            end else begin             // MEANS_BOTH_EXPONENTS_ARE_EQUAL
-                if (mentissa1>mentissa2)begin 
-                    sign_proc = sign1; // SO_CHECK_FOR_MENTISSA       
-                end else begin
-                    sign_proc = sign2;
-                end
-            end
-        end
-    end
+    //DECISION_BASED_ON_SIGNS_OF_TWO_NUMBERS_AND_OPCODE
+    assign equivalent_opcode = opcode_in ? ~(sign1 ^ sign2)
+                                         :  (sign1 ^ sign2);
 
-    assign sign_out = sign_proc;
+    assign mentissa_compare  = (mentissa1 > mentissa2);
+
+    //BLOCK_TO_DECIDE_SIGN_BIT_OF_RESULTANT_OUTPUT
+    assign sign_out = ((mentissa_compare && equivalent_opcode) ? 
+                      ((    (~opcode_in) && mentissa_compare ) ?  sign2 
+                                                               : ~sign2)
+                                                               :  sign1);
+    
+    //JUST_ASSIGNING_TO_OUTPUT_PORT
+    assign equivalent_opcode_out = equivalent_opcode;
 
 endmodule

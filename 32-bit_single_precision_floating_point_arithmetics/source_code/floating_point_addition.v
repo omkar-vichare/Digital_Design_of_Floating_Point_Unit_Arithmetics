@@ -26,6 +26,7 @@ module floating_point_addition#
     wire   [MENT_WIDTH-1      :0] smaller_operand; 
 
     //WIRES_FOR_STAGE3 : MENTISSA_ADDITION
+    wire                          equivalent_opcode;
     wire   [MENT_WIDTH-1      :0] bigger_operand;
     wire   [MENT_WIDTH        :0] rshift_operand;
     wire   [MENT_WIDTH        :0] addition_out;
@@ -61,34 +62,35 @@ module floating_point_addition#
     //CONTROL_UNIT_FOR_FLOATING_ADDITION
     addition_control_unit control_unit
         (
-         .exp_diff_in           (exp_diff),          // FROM_STAGE1
          .floating1_in          (floating1_in),      // FROM_TOP
          .floating2_in          (floating2_in),      // FROM_TOP
          .addition_in           (addition_out),      // FROM_STAGE3
+         .opcode_in             (opcode_in),         // FROM_TOP
+         .exp_diff_in           (exp_diff),          // FROM_STAGE1
          .mux1_sel_out          (mux1_sel),          // TO_STAGE1
          .mux2_sel_out          (mux2_sel),          // TO_STAGE1
          .mux3_sel_out          (mux3_sel),          // TO_STAGE1
-         .rshift_out            (rshift_by),         // TO_STAGE2
          .sign_out              (sign_out),          // TO_TOP
-         .normalize_position_out(normalize_position) // TO_STAGE4
-                       
+         .rshift_out            (rshift_by),         // TO_STAGE2
+         .equivalent_opcode_out (equivalent_opcode), // TO_STAGE3
+         .normalize_position_out(normalize_position) // TO_STAGE4        
         );
     
     //STAGE2 : ALIGNING_EXPONENT
     addition_stage2 stage2 
         (
-         .smaller_operand_in  (smaller_operand), // FROM_STAGE1
-         .rshift_in           (rshift_by),       // FROM_CONTROL
-         .smaller_operand_out (rshift_operand)   // TO_STAGE3
+         .smaller_operand_in (smaller_operand), // FROM_STAGE1
+         .rshift_in          (rshift_by),       // FROM_CONTROL
+         .smaller_operand_out(rshift_operand)   // TO_STAGE3
         );
 
     //STAGE3 : MENTISSA_ADDITION
     addition_stage3 stage3
         (
-         .operand1_in  (bigger_operand), // FROM_STAGE1
-         .operand2_in  (rshift_operand), // FROM_STAGE2
-         .opcode_in    (opcode_in),      // FROM_TOP
-         .addition_out (addition_out)    // TO_STAGE4,CONTROL
+         .operand1_in         (bigger_operand),    // FROM_STAGE1
+         .operand2_in         (rshift_operand),    // FROM_STAGE2
+         .equivalent_opcode_in(equivalent_opcode), // FROM_CONTROL
+         .addition_out        (addition_out)       // TO_STAGE4,CONTROL
         );
 
     //STAGE4: EXPONENT_MENTISSA_NORMALIZER

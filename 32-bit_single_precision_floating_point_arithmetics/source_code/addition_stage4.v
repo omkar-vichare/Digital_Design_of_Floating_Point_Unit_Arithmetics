@@ -12,7 +12,6 @@ module addition_stage4#
     
     //INPUT_FROM_CONTROL
     input  [$clog2(MENT_WIDTH):0] normalize_position_in,
-    //input                         valid_bit_in, 
 
     //OUTPUT_TO_STAGE5  : ROUNDING_HARDWARE
     output [MENT_WIDTH-1      :0] normalized_mentissa_out,
