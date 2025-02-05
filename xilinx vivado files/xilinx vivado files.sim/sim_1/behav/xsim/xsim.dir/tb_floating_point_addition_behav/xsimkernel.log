@@ -1,4 +1,4 @@
-Running: xsim.dir/tb_floating_point_addition_behav/xsimk -simmode gui -wdb tb_floating_point_addition_behav.wdb -simrunnum 0 -socket 45329
+Running: xsim.dir/tb_floating_point_addition_behav/xsimk -simmode gui -wdb tb_floating_point_addition_behav.wdb -simrunnum 0 -socket 50413
 Design successfully loaded
 Design Loading Memory Usage: 23512 KB (Peak: 24104 KB)
-Design Loading CPU Usage: 0 ms
+Design Loading CPU Usage: 30 ms

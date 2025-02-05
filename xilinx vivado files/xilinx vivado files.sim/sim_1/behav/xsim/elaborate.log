@@ -6,17 +6,4 @@ Using 8 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
 Completed static elaboration
-Starting simulation data flow analysis
-WARNING: [XSIM 43-4100] "/home/students/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files/xilinx vivado files.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
-WARNING: [XSIM 43-4100] "/home/students/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files/xilinx vivado files.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.addition_stage1
-Compiling module xil_defaultlib.addition_control_unit
-Compiling module xil_defaultlib.addition_stage2
-Compiling module xil_defaultlib.addition_stage3
-Compiling module xil_defaultlib.addition_stage4
-Compiling module xil_defaultlib.floating_point_addition
-Compiling module xil_defaultlib.tb_floating_point_addition
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot tb_floating_point_addition_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

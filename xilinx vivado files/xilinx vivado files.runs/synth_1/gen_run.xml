@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1738761823">
+  <File Type="VDS-TIMINGSUMMARY" Name="floating_point_addition_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="floating_point_addition.dcp"/>
   <File Type="RDS-UTIL-PB" Name="floating_point_addition_utilization_synth.pb"/>
-  <File Type="PA-TCL" Name="floating_point_addition.tcl"/>
   <File Type="RDS-UTIL" Name="floating_point_addition_utilization_synth.rpt"/>
-  <File Type="REPORTS-TCL" Name="floating_point_addition_reports.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="floating_point_addition_drc_synth.rpt"/>
   <File Type="RDS-RDS" Name="floating_point_addition.vds"/>
+  <File Type="REPORTS-TCL" Name="floating_point_addition_reports.tcl"/>
+  <File Type="VDS-TIMING-PB" Name="floating_point_addition_timing_summary_synth.pb"/>
+  <File Type="PA-TCL" Name="floating_point_addition.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../32-bit_single_precision_floating_point_arithmetics/source_code/addition_control_unit.v">
@@ -69,7 +72,9 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019">
+      <Desc>Vivado Synthesis Defaults</Desc>
+    </StratHandle>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>
