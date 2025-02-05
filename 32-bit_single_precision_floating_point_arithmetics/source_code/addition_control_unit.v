@@ -22,11 +22,10 @@ module addition_control_unit#
     output                        sign_out,
 
     //OUTPUT_TO_STAGE2  : ALIGNING_MENISSA
-    output [EXPO_WIDTH-1      :0] rshift_out,
+    output [EXPO_WIDTH        :0] rshift_out,
 
     //OUTPUT_TO_STAGE4  : EXPONENT_MENTISSA_NORMALIZER
-    output [$clog2(MENT_WIDTH):0] normalize_position_out 
-    //output                        valid_bit_out
+    output [$clog2(MENT_WIDTH):0] normalize_position_out
 );
 
     //WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
@@ -40,75 +39,56 @@ module addition_control_unit#
 
     //TO_GET_POSITION_OF_1ST_LOGIC1_CHECKING_FROM_MSB
     reg    [$clog2(MENT_WIDTH):0] position;
-    //TO_DISTINGUISH_BETWEEN_REDUNDANT_POSITION_VALUES
-    //reg                           valid_bit;
     //REG_TO_MAKE_USE_IF_ELSE_INTO_PROCEDURAL_BLOCK
     reg                           sign_proc;
 
     //FOR_LOOP_VARIABLE : TO_FIND_NORMALIZATION_POINT
     integer i = 0;
 
-    // IF_MSB_OF_exp_diff_IS_LOGIC1_THEN_ASSUMPTION_IS_FALSE
+    // IF_MSB_OF [ exp_diff ] IS_LOGIC1_THEN_ASSUMPTION_IS_FALSE
     // SO_MSB_IS_LOGIC1_THEN_ALL_SELECT_LINES_SHOULD_BE_ZERO
     
+    //WHAT_IF_BOTH_EXPO_ARE_EQUAL
     assign mux1_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b0 : 1'b1);
     assign mux2_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b0 : 1'b1);
     assign mux3_sel_out = (exp_diff_in[EXPO_WIDTH] ? 1'b0 : 1'b1);
 
     //ONLY_MAGNITUDE_IS_REQUIRED_FOR_STAGE2
-    assign rshift_out = exp_diff_in[EXPO_WIDTH-1:0];
-
-    //FOR_LOOP_BEGINS_FROM_MSB_TILL_LAST_POSITION
-    // always @(*) begin
-    //     position  = 5'd0;
-    //     valid_bit = 1'd1;
-    //     for(i = 5'd31; i >= 0 ; i = i - 1)begin
-    //         if(addition_in[i])begin
-    //             position  = i;
-    //             valid_bit = 1'd1; 
-    //             //break; //ONCE_FOUND_NO_NEED_TO_FURTHER_ITERATE
-    //         end
-    //     end         
-    // end
-    // COMMENTED_ABOVE_LOGIC_INSTEAD_PRIORITY_LOGIC_IS_USED
+    assign rshift_out   = exp_diff_in;
 
     //PRIORITY_ENCODER_TO_GET_1ST_LOGIC1_WHILE_CHECKING_FROM_MSB
     always@(*)begin
         casez(addition_in)
-            24'b1???_????_????_????_????_???? : position = 24'd23;
-            24'b01??_????_????_????_????_???? : position = 24'd22;
-            24'b001?_????_????_????_????_???? : position = 24'd21;
-            24'b0001_????_????_????_????_???? : position = 24'd20;
-            24'b0000_1???_????_????_????_???? : position = 24'd19;
-            24'b0000_01??_????_????_????_???? : position = 24'd18;
-            24'b0000_001?_????_????_????_???? : position = 24'd17;
-            24'b0000_0001_????_????_????_???? : position = 24'd16;
-            24'b0000_0000_1???_????_????_???? : position = 24'd15;
-            24'b0000_0000_01??_????_????_???? : position = 24'd14;
-            24'b0000_0000_001?_????_????_???? : position = 24'd13;
-            24'b0000_0000_0001_????_????_???? : position = 24'd12;
-            24'b0000_0000_0000_1???_????_???? : position = 24'd11;
-            24'b0000_0000_0000_01??_????_???? : position = 24'd10;
-            24'b0000_0000_0000_001?_????_???? : position = 24'd09;
-            24'b0000_0000_0000_0001_????_???? : position = 24'd08;
-            24'b0000_0000_0000_0000_1???_???? : position = 24'd07;
-            24'b0000_0000_0000_0000_01??_???? : position = 24'd06;
-            24'b0000_0000_0000_0000_001?_???? : position = 24'd05;
-            24'b0000_0000_0000_0000_0001_???? : position = 24'd04;
-            24'b0000_0000_0000_0000_0000_1??? : position = 24'd03;
-            24'b0000_0000_0000_0000_0000_01?? : position = 24'd02;
-            24'b0000_0000_0000_0000_0000_001? : position = 24'd01;
-            24'b0000_0000_0000_0000_0000_0001 : position = 24'd00;
-            24'b0000_0000_0000_0000_0000_0000 : position = 24'd00;
-            default                           : position = 24'd00;
+            24'b1???_????_????_????_????_???? : position = 5'd24;
+            24'b01??_????_????_????_????_???? : position = 5'd23;
+            24'b001?_????_????_????_????_???? : position = 5'd22;
+            24'b0001_????_????_????_????_???? : position = 5'd21;
+            24'b0000_1???_????_????_????_???? : position = 5'd20;
+            24'b0000_01??_????_????_????_???? : position = 5'd19;
+            24'b0000_001?_????_????_????_???? : position = 5'd18;
+            24'b0000_0001_????_????_????_???? : position = 5'd17;
+            24'b0000_0000_1???_????_????_???? : position = 5'd16;
+            24'b0000_0000_01??_????_????_???? : position = 5'd15;
+            24'b0000_0000_001?_????_????_???? : position = 5'd14;
+            24'b0000_0000_0001_????_????_???? : position = 5'd13;
+            24'b0000_0000_0000_1???_????_???? : position = 5'd12;
+            24'b0000_0000_0000_01??_????_???? : position = 5'd11;
+            24'b0000_0000_0000_001?_????_???? : position = 5'd10;
+            24'b0000_0000_0000_0001_????_???? : position = 5'd09;
+            24'b0000_0000_0000_0000_1???_???? : position = 5'd08;
+            24'b0000_0000_0000_0000_01??_???? : position = 5'd07;
+            24'b0000_0000_0000_0000_001?_???? : position = 5'd06;
+            24'b0000_0000_0000_0000_0001_???? : position = 5'd05;
+            24'b0000_0000_0000_0000_0000_1??? : position = 5'd04;
+            24'b0000_0000_0000_0000_0000_01?? : position = 5'd03;
+            24'b0000_0000_0000_0000_0000_001? : position = 5'd02;
+            24'b0000_0000_0000_0000_0000_0001 : position = 5'd01;
+            24'b0000_0000_0000_0000_0000_0000 : position = 5'd00; //SPECIAL_CASE
+            default                           : position = 5'd00;
         endcase
     end 
 
-    //ASSIGNING_PROCEDURAL_VALUE_TO_WIRED_OUTPUT
-    //assign valid_bit_out          = valid_bit;
-    //COMMENTED_ABOVE_LINE_BECAUSE_NOT_USING_FOR_LOOP
-
-    assign normalize_position_out = position;
+    assign normalize_position_out = 24 - position;
 
     //BLOCK_TO_DECIDE_SIGN_BIT_OF_RESULTANT_OUTPUT
     always@(*)begin

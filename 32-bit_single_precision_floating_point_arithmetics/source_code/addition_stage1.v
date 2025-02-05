@@ -6,8 +6,8 @@ module addition_stage1#
 )
 (
 	//INPUT_FROM_ADDITION_TOP_MODULE
-	input  [DATA_WIDTH-1:0] floating1_in,
-	input  [DATA_WIDTH-1:0] floating2_in,
+	input  [DATA_WIDTH-2:0] floating1_in,
+	input  [DATA_WIDTH-2:0] floating2_in,
 	//INPUT_FROM_CONTROL_UNIT
 	input                   mux1_sel_in,
 	input                   mux2_sel_in,
@@ -29,14 +29,16 @@ module addition_stage1#
 	//INTERNEDIATE_SIGNAL_FOR_TOWS'S_COMPLIMENT
 	wire   [EXPO_WIDTH  :0] twos_compliment;
 	
-	//WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS
-    wire                    sign1    ,sign2;    
+	//WIRES_FOR_BIT_SWIZZLING_FLOATING_NUMBERS   
     wire   [EXPO_WIDTH-1:0] exponent1,exponent2;
     wire   [MENT_WIDTH-1:0] mentissa1,mentissa2;
 	
 	//BIT_SWIZZLING
-	assign {sign1,exponent1,mentissa1} = floating1_in;
-    assign {sign2,exponent2,mentissa2} = floating2_in;
+	assign exponent1 = floating1_in[DATA_WIDTH-2 -: EXPO_WIDTH];
+	assign exponent2 = floating2_in[DATA_WIDTH-2 -: EXPO_WIDTH];
+
+	assign mentissa1 = floating1_in[MENT_WIDTH-1 -: MENT_WIDTH];
+	assign mentissa2 = floating2_in[MENT_WIDTH-1 -: MENT_WIDTH];
 
     // REASON_FOR_EXPONRNT_SUBTRACTION
     // 1. TO_GET_MAGNITUDE_TO_PERFROM_RIGHT_SHIFT
@@ -49,6 +51,7 @@ module addition_stage1#
     // ASSUMPTION : EXPONENT1 > EXPONENT2 
     // IF_ASSUMPTION_IS_CORRECT_SEL_LINES_ARE_LOGIC 1
 
+	//WHAT_IF_BOTH_EXPO_ARE_EQUAL
 	assign bigger_operand_out  = (mux1_sel_in ? mentissa1 
 											  : mentissa2);
 
@@ -58,6 +61,6 @@ module addition_stage1#
 	// SELECT_BIGGER_EXPONENT
 	// FOR_LATER_USE_DURING_NORMALIZATION
 
-	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2);	//bigger_operand_out was given instead of bigger_exponent_out. Changed to the bigger_exponent_out
+	assign bigger_exponent_out  = (mux3_sel_in ? exponent1 : exponent2); //bigger_operand_out was given instead of bigger_exponent_out. Changed to the bigger_exponent_out
 
 endmodule
