@@ -125,7 +125,7 @@ module tb_floating_point_addition#
         opcode_in    = 1;
         #100;
         $display("opcode = %b :: floating1 = %b :: floating2 = %b :: floating out = %b",opcode_in,floating1_in,floating2_in,floating_addition_out);
-        $display("SIMULATION ENDS...");        
+        //$display("SIMULATION ENDS...");        
     end
 
     initial begin
