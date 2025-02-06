@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1738761823">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1738835008">
   <File Type="VDS-TIMINGSUMMARY" Name="floating_point_addition_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="floating_point_addition.dcp"/>
   <File Type="RDS-UTIL-PB" Name="floating_point_addition_utilization_synth.pb"/>
@@ -72,9 +72,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>

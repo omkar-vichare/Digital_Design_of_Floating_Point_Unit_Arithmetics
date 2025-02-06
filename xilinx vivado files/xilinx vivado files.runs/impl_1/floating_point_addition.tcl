@@ -126,6 +126,7 @@ set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 4
   set_param checkpoint.writeSynthRtdsInDcp 1
+  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-5684-vlsi-01/incrSyn
   set_param runs.launchOptions { -jobs 8  }
   reset_param project.defaultXPMLibraries 
   open_checkpoint {/home/students/Documents/Digital_Design_of_Floating_Point_Unit_Arithmetics/xilinx vivado files/xilinx vivado files.runs/impl_1/floating_point_addition.dcp}

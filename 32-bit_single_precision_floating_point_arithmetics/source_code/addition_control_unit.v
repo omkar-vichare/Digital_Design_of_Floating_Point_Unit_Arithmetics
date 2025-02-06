@@ -10,8 +10,8 @@ module addition_control_unit#
     //INPUT_FROM_STAGE3 : MENTISSA_ADDITION
     input  [MENT_WIDTH        :0] addition_in, 
     //INPUT_FROM_TOP
-    input  [DATA_WIDTH-1      :0] floating1_in,
-    input  [DATA_WIDTH-1      :0] floating2_in,
+    input  [MENT_WIDTH        :0] floating1_in,
+    input  [MENT_WIDTH        :0] floating2_in,
     input                         opcode_in,
     //OUTPUT_TO_STAGE1  : EXPONENT_COMPARISION
     output                        mux1_sel_out,
@@ -35,12 +35,10 @@ module addition_control_unit#
     wire                          sign1    ,sign2;    
     wire   [MENT_WIDTH-1      :0] mentissa1,mentissa2;
     wire                          equivalent_opcode;
-    wire                          inter_sel;
-    wire                          sign2_inter;
     
     //BIT_SWIZZLING
-    assign sign1     = floating1_in[DATA_WIDTH-1];
-    assign sign2     = floating2_in[DATA_WIDTH-1];
+    assign sign1     = floating1_in[  MENT_WIDTH  ];
+    assign sign2     = floating2_in[  MENT_WIDTH  ];
 
     assign mentissa1 = floating1_in[MENT_WIDTH-1:0];
     assign mentissa2 = floating2_in[MENT_WIDTH-1:0];

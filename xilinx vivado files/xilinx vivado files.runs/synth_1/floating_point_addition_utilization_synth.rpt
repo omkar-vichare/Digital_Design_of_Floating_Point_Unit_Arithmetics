@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1 (lin64) Build 3865809 Sun May  7 15:04:56 MDT 2023
-| Date         : Wed Feb  5 18:54:04 2025
+| Date         : Thu Feb  6 15:13:50 2025
 | Host         : vlsi-01 running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_utilization -file floating_point_addition_utilization_synth.rpt -pb floating_point_addition_utilization_synth.pb
 | Design       : floating_point_addition
@@ -31,8 +31,8 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*             |  232 |     0 |          0 |     20800 |  1.12 |
-|   LUT as Logic          |  232 |     0 |          0 |     20800 |  1.12 |
+| Slice LUTs*             |  249 |     0 |          0 |     20800 |  1.20 |
+|   LUT as Logic          |  249 |     0 |          0 |     20800 |  1.20 |
 |   LUT as Memory         |    0 |     0 |          0 |      9600 |  0.00 |
 | Slice Registers         |    0 |     0 |          0 |     41600 |  0.00 |
 |   Register as Flip Flop |    0 |     0 |          0 |     41600 |  0.00 |
@@ -151,15 +151,14 @@ Warning! LUT value is adjusted to account for LUT combining.
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| LUT6     |  123 |                 LUT |
+| LUT6     |  129 |                 LUT |
 | IBUF     |   65 |                  IO |
-| LUT4     |   46 |                 LUT |
-| LUT3     |   46 |                 LUT |
-| LUT5     |   36 |                 LUT |
+| LUT3     |   48 |                 LUT |
+| LUT4     |   47 |                 LUT |
+| LUT5     |   43 |                 LUT |
 | OBUF     |   32 |                  IO |
-| LUT2     |   16 |                 LUT |
+| LUT2     |   18 |                 LUT |
 | CARRY4   |   14 |          CarryLogic |
-| LUT1     |    2 |                 LUT |
 +----------+------+---------------------+
 
 

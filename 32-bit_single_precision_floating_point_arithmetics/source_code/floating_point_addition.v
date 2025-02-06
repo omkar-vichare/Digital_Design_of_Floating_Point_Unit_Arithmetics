@@ -20,6 +20,8 @@ module floating_point_addition#
     wire                          mux1_sel;
     wire                          mux2_sel;
     wire                          mux3_sel;
+    wire   [DATA_WIDTH-2      :0] floating_point1;
+    wire   [DATA_WIDTH-2      :0] floating_point2;
 
     //WIRES_FOR_STAGE2 : ALIGNING_MENTISSA
     wire   [EXPO_WIDTH        :0] rshift_by;
@@ -39,11 +41,14 @@ module floating_point_addition#
 
     //WIRES_FOR_CONTROL
     wire                          sign_out;
-    wire   [DATA_WIDTH-2      :0] floating_point1;
-    wire   [DATA_WIDTH-2      :0] floating_point2;
+    wire   [MENT_WIDTH        :0] floating1_sm;
+    wire   [MENT_WIDTH        :0] floating2_sm;
 
     assign floating_point1 = floating1_in[DATA_WIDTH-2:0];
     assign floating_point2 = floating2_in[DATA_WIDTH-2:0];
+    
+    assign floating1_sm    = {floating1_in[DATA_WIDTH-1],floating1_in[MENT_WIDTH-1:0]};
+    assign floating2_sm    = {floating2_in[DATA_WIDTH-1],floating2_in[MENT_WIDTH-1:0]};
 
     //STAGE1 : EXPONENT_COMPARISION
     addition_stage1 stage1
@@ -62,8 +67,8 @@ module floating_point_addition#
     //CONTROL_UNIT_FOR_FLOATING_ADDITION
     addition_control_unit control_unit
         (
-         .floating1_in          (floating1_in),      // FROM_TOP
-         .floating2_in          (floating2_in),      // FROM_TOP
+         .floating1_in          (floating1_sm),      // FROM_TOP
+         .floating2_in          (floating2_sm),      // FROM_TOP
          .addition_in           (addition_out),      // FROM_STAGE3
          .opcode_in             (opcode_in),         // FROM_TOP
          .exp_diff_in           (exp_diff),          // FROM_STAGE1
