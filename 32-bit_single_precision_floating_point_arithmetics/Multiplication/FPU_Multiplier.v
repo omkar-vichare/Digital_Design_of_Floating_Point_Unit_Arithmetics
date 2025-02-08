@@ -27,9 +27,9 @@ module mutliplication
   parameter M       = 48
  )
  (
-   input  [D_WIDTH-1 : 0]floating1_in,
-   input  [D_WIDTH-1 : 0]floating2_in,
-   output [D_WIDTH-1 : 0]floating_multiplication_out 
+    input  [D_WIDTH-1 : 0]floating1_in,
+    input  [D_WIDTH-1 : 0]floating2_in,
+    output [D_WIDTH-1 : 0]floating_multiplication_out 
  );
     //Partitioning bits for sign,exponent,mantissa;
     wire                sign1,sign2;
@@ -42,13 +42,13 @@ module mutliplication
     wire                output_sign;
     
     //input Numbers
-    assign sign1 = number_1[D_WIDTH-1]; //[31]
-    assign exp1  = number_1[D_WIDTH-2 -: E_WIDTH]; //[30:23]
-    assign m1    = number_1[M_WIDTH-1 -: M_WIDTH]; //[22:0]
+    assign sign1 = floating1_in[D_WIDTH-1]; //[31]
+    assign exp1  = floating1_in[D_WIDTH-2 -: E_WIDTH]; //[30:23]
+    assign m1    = floating1_in[M_WIDTH-1 -: M_WIDTH]; //[22:0]
     
-    assign sign2 = number_2[D_WIDTH-1];
-    assign exp2  = number_2[D_WIDTH-2 -: E_WIDTH];
-    assign m2    = number_2[M_WIDTH-1 -: M_WIDTH];
+    assign sign2 = floating2_in[D_WIDTH-1];
+    assign exp2  = floating2_in[D_WIDTH-2 -: E_WIDTH];
+    assign m2    = floating2_in[M_WIDTH-1 -: M_WIDTH];
     
     //Intermediate outputs
     wire [E_WIDTH : 0]exp_out;
@@ -84,6 +84,6 @@ module mutliplication
     assign output_sign     = sign1 ^ sign2;
     
     //Final Result
-    assign number_out = {output_sign, output_exponent, output_mantissa};
+    assign floating_multiplication_out = {output_sign, output_exponent, output_mantissa};
     
 endmodule
