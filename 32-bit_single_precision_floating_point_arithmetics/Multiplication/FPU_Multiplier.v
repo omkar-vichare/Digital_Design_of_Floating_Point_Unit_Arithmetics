@@ -27,9 +27,9 @@ module mutliplication
   parameter M       = 48
  )
  (
-    input  [D_WIDTH-1 : 0]number_1,
-    input  [D_WIDTH-1 : 0]number_2,
-    output [D_WIDTH-1 : 0]number_out 
+   input  [D_WIDTH-1 : 0]floating1_in,
+   input  [D_WIDTH-1 : 0]floating2_in,
+   output [D_WIDTH-1 : 0]floating_multiplication_out 
  );
     //Partitioning bits for sign,exponent,mantissa;
     wire                sign1,sign2;
