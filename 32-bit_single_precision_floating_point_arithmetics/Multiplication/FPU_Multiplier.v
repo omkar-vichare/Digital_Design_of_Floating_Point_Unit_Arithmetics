@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module mutliplication
+module multiplication
 #(parameter D_WIDTH = 32,
   parameter M_WIDTH = 23,
   parameter E_WIDTH = 8,
