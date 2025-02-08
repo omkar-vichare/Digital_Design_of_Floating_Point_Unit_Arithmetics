@@ -33,7 +33,7 @@ module tb_multiplication;
     real nout;
     
     // Instantiate the module
-    mutliplication uut (
+    multiplication uut (
         .floating1_in(floating1_in),
         .floating2_in(floating2_in),
         .floating_multiplication_out(floating_multiplication_out)
