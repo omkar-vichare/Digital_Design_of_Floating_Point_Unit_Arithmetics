@@ -37,20 +37,25 @@ module division_exception #(parameter DATA_WIDTH = 32
             sel = 1'b0;
         end
         
-        else if(float_num2 == 32'h7F80_0000) begin   
+        else if(float_num1 != 32'h0000_0000 && float_num2 == 32'h7F80_0000) begin   
             out = 32'h0000_0000;    // any_number / infinity = zero
             sel = 1'b0;
         end 
         
-        else if(float_num1 == 32'h7F80_0000) begin   
+        else if(float_num1 == 32'h7F80_0000 && float_num1 != 32'h0000_0000) begin   
             out = 32'h7F80_0000;    //  infinity / any_number = infinity
             sel = 1'b0;
         end 
         
-        else if(float_num2 == 32'h0000_0000) begin   
+        else if(float_num1 != 32'h0000_0000 && float_num2 == 32'h0000_0000) begin   
             out = 32'h7F80_0000;    //  any_number / zero = infinity
             sel = 1'b0;
         end 
+        
+        else if(float_num1 == 32'h0000_0000 && float_num2 != 32'h0000_0000) begin   
+            out = 32'h0000_0000;    //   zero / any number = zero
+            sel = 1'b0;
+        end
         
         else begin   
             out = 32'h0000_0000;
